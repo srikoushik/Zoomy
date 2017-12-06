@@ -229,10 +229,12 @@ class ZoomableTouchListener implements View.OnTouchListener, ScaleGestureDetecto
 
     private void addToDecorView(View v) {
         ((ViewGroup) mActivity.getWindow().getDecorView()).addView(v);
+        mShadow.setClickable(true);
     }
 
     private void removeFromDecorView(View v) {
         ((ViewGroup) mActivity.getWindow().getDecorView()).removeView(v);
+        mShadow.setClickable(false);
     }
 
     private void obscureDecorView(float factor) {
