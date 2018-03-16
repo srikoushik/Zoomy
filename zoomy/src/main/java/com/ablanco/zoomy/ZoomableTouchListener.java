@@ -80,7 +80,7 @@ class ZoomableTouchListener implements View.OnTouchListener, ScaleGestureDetecto
 
 
     ZoomableTouchListener(Activity activity, View view, ZoomyConfig config, Interpolator interpolator,
-                          ZoomListener zoomListener, TapListener tapListener) {
+                          ZoomListener zoomListener) {
         this.mActivity = activity;
         this.mTarget = view;
         this.mConfig = config;
