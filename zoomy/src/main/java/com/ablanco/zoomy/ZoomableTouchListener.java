@@ -36,15 +36,13 @@ class ZoomableTouchListener implements View.OnTouchListener, ScaleGestureDetecto
 
     private ScaleGestureDetector mScaleGestureDetector;
     private GestureDetector mGestureDetector;
-/*
     private SimpleGestureListener mGestureListener = new SimpleGestureListener(){
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             if(mTapListener != null) mTapListener.onTap(mTarget);
-            return true;
+            return false;
         }
     };
-*/
 
     private float mScaleFactor = 1f;
 
@@ -58,7 +56,7 @@ class ZoomableTouchListener implements View.OnTouchListener, ScaleGestureDetecto
 
     private ZoomyConfig mConfig;
     private ZoomListener mZoomListener;
-    //private final TapListener mTapListener;
+    private final TapListener mTapListener;
 
     private Runnable mEndingZoomAction = new Runnable() {
         @Override
@@ -80,16 +78,16 @@ class ZoomableTouchListener implements View.OnTouchListener, ScaleGestureDetecto
 
 
     ZoomableTouchListener(Activity activity, View view, ZoomyConfig config, Interpolator interpolator,
-                          ZoomListener zoomListener) {
+                          ZoomListener zoomListener, TapListener tapListener) {
         this.mActivity = activity;
         this.mTarget = view;
         this.mConfig = config;
         this.mEndZoomingInterpolator = interpolator != null
                 ? interpolator : new AccelerateDecelerateInterpolator();
         this.mScaleGestureDetector = new ScaleGestureDetector(activity, this);
-        //this.mGestureDetector = new GestureDetector(activity, mGestureListener);
+        this.mGestureDetector = new GestureDetector(activity, mGestureListener);
         this.mZoomListener = zoomListener;
-        //this.mTapListener = tapListener;
+        this.mTapListener = tapListener;
     }
 
     @Override
@@ -98,7 +96,7 @@ class ZoomableTouchListener implements View.OnTouchListener, ScaleGestureDetecto
         if (mAnimatingZoomEnding || ev.getPointerCount() > 2) return true;
 
         mScaleGestureDetector.onTouchEvent(ev);
-        //mGestureDetector.onTouchEvent(ev);
+        mGestureDetector.onTouchEvent(ev);
 
         int action = ev.getAction() & MotionEvent.ACTION_MASK;
 

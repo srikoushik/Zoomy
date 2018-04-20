@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
             holder.itemView.setTag(holder.getAdapterPosition());
             Zoomy.Builder builder = new Zoomy.Builder(MainActivity.this)
                     .target(holder.itemView)
-                    .interpolator(new OvershootInterpolator());
-                   /* .tapListener(new TapListener() {
+                    .interpolator(new OvershootInterpolator())
+                    .tapListener(new TapListener() {
                         @Override
                         public void onTap(View v) {
                             Toast.makeText(MainActivity.this, "Tap on "
                                     + v.getTag(), Toast.LENGTH_SHORT).show();
                         }
-                    });*/
+                    });
             builder.register();
         }
 
